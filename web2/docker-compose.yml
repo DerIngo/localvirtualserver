@@ -1,0 +1,17 @@
+services:
+  nginx:
+    image: nginx
+    container_name: nginx2
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx2.rule=PathPrefix(`/derzweite`)"
+      - "traefik.http.routers.nginx2.entrypoints=web"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./html:/usr/share/nginx/html:ro"
+
+networks:
+  default:
+    name: traefik-net
+    external: true
